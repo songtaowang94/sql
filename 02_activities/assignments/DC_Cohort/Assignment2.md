@@ -54,7 +54,10 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+Type 1: overwrite changes. 
+When a unique Customer_ID changes address, run UPDATE query and then the original address is overwritten by the new address. 
+Type 2: Reatin changes. 
+When a unique Customer_ID changes address, run UPDATE query to on the old record with a unique Address_History_ID and Is_Current =0; then run INSERT query for the new record with Is_Current = 1. In this case, the current address can be found by running WHERE Is_Current = 1 while the old record is retained.
 ```
 
 ***
@@ -76,9 +79,9 @@ Steps to complete this part of the assignment:
 
 Using the following syntax you create our super cool and not at all needy manager a list:
 ```
-SELECT 
-product_name || ', ' || product_size|| ' (' || product_qty_type || ')'
-FROM product
+    SELECT 
+    product_name || ', ' || product_size|| ' (' || product_qty_type || ')'
+    FROM product
 ```
 
 But wait! The product table has some bad data (a few NULL values). 
@@ -92,6 +95,7 @@ Find the NULLs and then using COALESCE, replace the NULL with a blank for the fi
 1. Write a query that selects from the customer_purchases table and numbers each customer’s visits to the farmer’s market (labeling each market date with a different number). Each customer’s first visit is labeled 1, second visit is labeled 2, etc. 
 
 You can either display all rows in the customer_purchases table, with the counter changing on each new market date for each customer, or select only the unique market dates per customer (without purchase details) and number those visits. 
+
 
 **HINT**: One of these approaches uses ROW_NUMBER() and one uses DENSE_RANK().
 
@@ -183,5 +187,6 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 
 
 ```
-Your thoughts...
+AI models are not self-sufficient; they are "trained" on massive datasets, requiring humans to perform mind-numbing, repetitive tasks like data labeling and content creation.The ethical problem is that the multi-trillion-dollar AI industry is built on a foundation of poorly compensated human labor. For example, in content moderation, to train AI to detect and filter toxic content, a human workforce will first be exposed to traumatic material like hate speech and graphic violence. These workers would view and categorize this material, often for low pay and with inadequate psychological support.
+Furthermore, deploying human resorces could also cause biases in AI. The human markers who label the data would bring their own cultural and personal biases to their judgments. The AI model learns these biases as "truth" and then scales them, inputing them through algorithm that makes the bias seem objective and mathematical. This leads to biased outcomes in hiring, loans, and criminal justice, all under a veneer of technological neutrality.
 ```
